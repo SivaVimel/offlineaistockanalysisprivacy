@@ -1,0 +1,265 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Privacy Policy — Offline AI Stock Analysis</title>
+<meta name="description" content="No account, no analytics, no servers. Your watchlists and holdings never leave your phone.">
+<meta name="color-scheme" content="light dark">
+<style>
+  /* ── Palette ─────────────────────────────────────────────────
+     The app's own values. Dark is the design and light is the
+     accommodation, exactly as in Theme.swift.                     */
+  :root{
+    --bg:#F7F8FC; --text:#0F1319; --text2:#4B5361; --text3:#7C8593;
+    --accent:#3D5AFE; --accent2:#2B45D6; --accentSoft:rgba(61,90,254,.10);
+    --pos:#0E9F6E; --neg:#E02424;
+    --glass:rgba(255,255,255,.66);
+    --glass2:rgba(255,255,255,.80);
+    --edge:rgba(15,19,25,.09);
+    --sheen:rgba(255,255,255,.92);
+    --shadow:0 1px 0 var(--sheen) inset, 0 10px 30px rgba(15,19,25,.07);
+    --shadowUp:0 1px 0 var(--sheen) inset, 0 18px 44px rgba(15,19,25,.12);
+    --aur1:rgba(61,90,254,.20); --aur2:rgba(14,116,144,.13); --aur3:rgba(107,133,255,.20);
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --bg:#000000; --text:#FFFFFF; --text2:#A6ADBA; --text3:#737B87;
+      --accent:#6B85FF; --accent2:#8AA0FF; --accentSoft:rgba(107,133,255,.14);
+      --pos:#31C48D; --neg:#F98080;
+      --glass:rgba(255,255,255,.055);
+      --glass2:rgba(255,255,255,.085);
+      --edge:rgba(255,255,255,.10);
+      --sheen:rgba(255,255,255,.07);
+      --shadow:0 1px 0 var(--sheen) inset, 0 14px 36px rgba(0,0,0,.45);
+      --shadowUp:0 1px 0 var(--sheen) inset, 0 22px 52px rgba(0,0,0,.6);
+      --aur1:rgba(107,133,255,.26); --aur2:rgba(63,208,207,.13); --aur3:rgba(43,63,212,.24);
+    }
+  }
+
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%;background:var(--bg)}
+
+  /* The ambient wash the glass has something to blur. Fixed, so it
+     stays put while the page scrolls and every panel picks up a
+     different part of it.                                          */
+  body{
+    margin:0;color:var(--text);
+    font:16px/1.65 -apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    -webkit-font-smoothing:antialiased;
+    background-color:var(--bg);
+    background-image:
+      radial-gradient(42vmax 42vmax at 10% -8%, var(--aur1), transparent 62%),
+      radial-gradient(34vmax 34vmax at 96% 4%,  var(--aur2), transparent 60%),
+      radial-gradient(46vmax 46vmax at 72% 98%, var(--aur3), transparent 64%);
+    background-attachment:fixed;background-repeat:no-repeat;
+  }
+
+  .wrap{max-width:780px;margin:0 auto;padding:36px 20px 96px}
+  a{color:var(--accent);text-decoration:none;border-bottom:1px solid transparent}
+  a:hover{border-bottom-color:currentColor}
+
+  /* ── Glass ───────────────────────────────────────────────── */
+  .card,.note,.brand,.kicker,table{
+    -webkit-backdrop-filter:blur(20px) saturate(160%);
+    backdrop-filter:blur(20px) saturate(160%);
+  }
+
+  /* ── Brand ───────────────────────────────────────────────── */
+  .brand{display:flex;align-items:center;gap:13px;margin:0 0 34px;
+    background:var(--glass);border:1px solid var(--edge);border-radius:18px;
+    padding:12px 16px 12px 12px;box-shadow:var(--shadow)}
+  .brand .tile{width:46px;height:46px;border-radius:13px;flex:0 0 auto;
+    background:linear-gradient(135deg,#6B85FF,#2B3FD4);
+    display:flex;align-items:center;justify-content:center;
+    box-shadow:0 6px 18px rgba(61,90,254,.38),
+               0 0 0 1px rgba(255,255,255,.14) inset}
+  .brand .name{font-weight:700;font-size:15.5px;letter-spacing:-.2px;line-height:1.28}
+  .brand .name span{display:block;color:var(--text3);font-weight:500;font-size:12.5px}
+
+  /* ── Hero ────────────────────────────────────────────────── */
+  h1{font-size:clamp(31px,6.2vw,45px);line-height:1.08;letter-spacing:-1.1px;
+    margin:0 0 15px;font-weight:800;color:var(--text)}
+  @supports ((-webkit-background-clip:text) or (background-clip:text)){
+    h1{background:linear-gradient(135deg,var(--text) 34%,var(--accent) 120%);
+      -webkit-background-clip:text;background-clip:text;color:transparent}
+  }
+  .lede{font-size:18.5px;line-height:1.55;color:var(--text2);margin:0 0 8px}
+  .lede strong{color:var(--text)}
+  .kicker{display:inline-flex;align-items:center;gap:7px;font-size:11.5px;
+    font-weight:700;letter-spacing:.7px;text-transform:uppercase;color:var(--accent);
+    background:var(--accentSoft);border:1px solid var(--edge);
+    padding:6px 13px;border-radius:999px;margin-bottom:18px}
+  .kicker::before{content:"";width:6px;height:6px;border-radius:50%;
+    background:var(--accent);box-shadow:0 0 0 3px var(--accentSoft)}
+
+  h2{font-size:21.5px;letter-spacing:-.45px;margin:46px 0 12px;font-weight:700}
+  h3{font-size:15.5px;letter-spacing:-.2px;margin:0 0 5px;font-weight:650}
+  p,li{color:var(--text2)}
+  ul{padding-left:20px;margin:12px 0}
+  li{margin:7px 0}
+  li::marker{color:var(--accent)}
+  strong{color:var(--text);font-weight:640}
+
+  /* ── Panels ──────────────────────────────────────────────── */
+  .card{background:var(--glass);border:1px solid var(--edge);border-radius:18px;
+    padding:20px 22px;margin:18px 0;box-shadow:var(--shadow);
+    transition:transform .22s ease, box-shadow .22s ease, background .22s ease}
+  .card:hover{transform:translateY(-2px);box-shadow:var(--shadowUp);background:var(--glass2)}
+  .card h3{color:var(--text)}
+  .card p:last-child{margin-bottom:0}
+  .card p:first-of-type{margin-top:0}
+
+  .grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(232px,1fr));margin:18px 0}
+  .grid .card{margin:0}
+
+  .row{display:flex;gap:13px;align-items:flex-start;padding:15px 0;
+    border-bottom:1px solid var(--edge)}
+  .row:last-child{border-bottom:0}
+  .row .dot{width:9px;height:9px;border-radius:50%;background:var(--accent);
+    box-shadow:0 0 0 4px var(--accentSoft);margin-top:8px;flex:0 0 auto}
+  .row .body{flex:1;min-width:0}
+  .row .body p{margin:3px 0 0;font-size:14px}
+
+  .src{font-size:12.5px;font-weight:650;color:var(--accent);margin:2px 0 4px}
+
+  table{width:100%;border-collapse:collapse;margin:18px 0;font-size:14.5px;
+    display:block;overflow-x:auto;background:var(--glass);
+    border:1px solid var(--edge);border-radius:16px;box-shadow:var(--shadow)}
+  th,td{text-align:left;padding:12px 14px;border-bottom:1px solid var(--edge);
+    vertical-align:top}
+  tr:last-child td{border-bottom:0}
+  th{color:var(--text3);font-weight:650;font-size:11.5px;text-transform:uppercase;
+    letter-spacing:.5px;white-space:nowrap}
+  td{color:var(--text2)}
+  td strong{color:var(--text)}
+
+  .note{background:var(--glass2);border:1px solid var(--edge);
+    border-left:3px solid var(--accent);border-radius:6px 16px 16px 6px;
+    padding:16px 20px;margin:22px 0;font-size:14.5px;color:var(--text2);
+    box-shadow:var(--shadow)}
+  .note strong{color:var(--text)}
+
+  /* ── Footer ──────────────────────────────────────────────── */
+  .foot{margin-top:62px;padding-top:26px;color:var(--text3);font-size:13.5px;
+    border-top:1px solid transparent;
+    border-image:linear-gradient(90deg,var(--accent),transparent 70%) 1}
+  .foot a{color:var(--text2)}
+  .updated{color:var(--text3);font-size:13.5px;margin-top:-4px}
+
+  /* Motion is decoration here; nothing depends on it. */
+  @media (prefers-reduced-motion: reduce){
+    *{transition:none !important;animation:none !important}
+    .card:hover{transform:none}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+<div class="brand">
+  <div class="tile"><svg width="27" height="27" viewBox="0 0 1024 1024" aria-hidden="true" focusable="false"><mask id="mk" maskUnits="userSpaceOnUse" x="0" y="0" width="1024" height="1024"><rect width="1024" height="1024" fill="#000"/><g fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round"><path d="M176 628 400 488 624 554 848 330" stroke-width="50"/><path d="M400 488 318 346" stroke="#ccc" stroke-width="28"/><path d="M624 554 706 730" stroke="#ccc" stroke-width="28"/></g><g fill="#fff"><circle cx="318" cy="346" r="42"/><circle cx="706" cy="730" r="42"/><circle cx="848" cy="330" r="78"/><circle cx="176" cy="628" r="56"/><circle cx="400" cy="488" r="64"/><circle cx="624" cy="554" r="64"/></g><g fill="#000"><circle cx="176" cy="628" r="30"/><circle cx="400" cy="488" r="38"/><circle cx="624" cy="554" r="38"/></g></mask><rect width="1024" height="1024" fill="#fff" mask="url(#mk)"/></svg></div>
+  <div class="name">Offline AI Stock Analysis<span>Every number, back to its filing</span></div>
+</div>
+<span class="kicker">Privacy Policy</span>
+<h1>Nothing about you is collected.</h1>
+<p class="lede">No account. No analytics. No advertising identifier. No server
+belonging to this app. Your watchlists, your holdings and what you looked at
+never leave your phone.</p>
+<p class="updated">Last updated 17 September 2026</p>
+
+<div class="note"><strong>The short version.</strong> The App Store label says
+<em>Data Not Collected</em>, and that is literally true. The app asks public
+services for public information about a company, by ticker. It never tells them
+who is asking, and it never tells anyone what you own.</div>
+
+<h2>What is stored, and where</h2>
+<p>Everything the app knows lives in its own private container on your device:
+your watchlists, your holdings, your saved screens and notes, and the filings
+and prices it has downloaded. These are ordinary files, encrypted at rest by
+iOS, and they are deleted when you delete the app.</p>
+<p>There is no account to create, nothing to sign in to, and no sync. The data
+is on your phone and nowhere else.</p>
+
+<h2>What leaves your device</h2>
+<p>Only requests for public information, each one identifying a company and
+nothing else:</p>
+<div class="grid">
+  <div class="card">
+    <h3>SEC EDGAR</h3>
+    <div class="src">data.sec.gov</div>
+    <p>A company's own filings — the XBRL from its 10-K, 10-Q and 20-F, its
+    insider Form 4s and, for funds, Form N-PORT. Public record.</p>
+  </div>
+  <div class="card">
+    <h3>Public price feed</h3>
+    <div class="src">Delayed end-of-day closes</div>
+    <p>Daily closes, dividends and splits for a ticker. Delayed, never live
+    quotes, and labelled as delayed everywhere they appear.</p>
+  </div>
+</div>
+<p>Those services see a request for a public company from an ordinary IP
+address, with no identifier attached. They are not told who you are, what you
+hold, or what else you have looked at.</p>
+
+<h2>What is never sent</h2>
+<ul>
+  <li>Your identity — there is no account, no email, no sign-in.</li>
+  <li>Your holdings, their sizes, or what you paid.</li>
+  <li>Your watchlists, screens, notes or search history.</li>
+  <li>Any device or advertising identifier, or any fingerprint of your phone.</li>
+</ul>
+
+<h2>The network connection itself</h2>
+<p>The app uses an ephemeral network session: no cookies are stored or sent, no
+credentials are kept, and everything is discarded when the app closes. A data
+source cannot recognise your device tomorrow as the one that asked today.</p>
+
+<h2>The AI runs on your phone</h2>
+<p>The language model is bundled inside the app and runs entirely on your
+device. Nothing is sent anywhere for it to work, and it works with no
+connection at all.</p>
+<p>You may optionally connect your own third-party AI service in Settings by
+supplying your own API key. If — and only if — you do that, the computed figures
+for the company on screen are sent to that provider so it can phrase them.
+Those are the same numbers already visible to you. Your watchlists, holdings and
+history are still never sent. Your key is stored on your device only. This is
+off by default and the app is fully functional without it.</p>
+
+<h2>Tracking and third parties</h2>
+<p>None. There is no analytics SDK, no crash reporting to a third party, no
+attribution framework, no advertising network and no tracking of any kind. The
+app does not ask for the App Tracking Transparency permission because it has
+nothing to track you with.</p>
+
+<h2>Permissions</h2>
+<table>
+  <tr><th>Permission</th><th>Why</th></tr>
+  <tr><td><strong>Face ID / Touch ID</strong></td>
+      <td>Only if you switch on app lock, so someone who picks up your phone
+      cannot open the app. Nothing is sent anywhere and no biometric data is
+      ever available to the app.</td></tr>
+  <tr><td><strong>Network</strong></td>
+      <td>To download filings and prices. Everything already downloaded keeps
+      working with no connection.</td></tr>
+</table>
+
+<h2>Children</h2>
+<p>The app is not directed at children and collects nothing from anyone.</p>
+
+<h2>Changes</h2>
+<p>If this policy ever changes, the new version will be published here with a
+new date. Since nothing is collected, there is nothing to change retroactively.</p>
+
+<h2>Contact</h2>
+<p>Questions about privacy, or anything else:
+<a href="mailto:sivavimelrajhen@gmail.com">sivavimelrajhen@gmail.com</a></p>
+<div class="foot">
+  <p><strong>Offline AI Stock Analysis</strong> · Built by Sivavimelrajhen ·
+     <a href="mailto:sivavimelrajhen@gmail.com">sivavimelrajhen@gmail.com</a></p>
+  <p>Financial data from public SEC filings and a public delayed price feed.
+     This app reports what filings say. It is not investment advice, not a
+     recommendation and not a broker.</p>
+</div>
+</div>
+</body>
+</html>
